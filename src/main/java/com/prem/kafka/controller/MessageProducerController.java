@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.swing.plaf.IconUIResource;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/producer")
@@ -20,8 +22,8 @@ public class MessageProducerController {
 
     @PostMapping("/send")
     public String sendMessage(@Valid @RequestBody MessageRequest messageRequest) {
-        log.info("sendMessage(): Sending message: {}", messageRequest);
-        notificationProducer.sendNotification(messageRequest.message());
+        log.info("sendMessage(): Sending {} messages: {}", messageRequest.count(), messageRequest);
+        notificationProducer.sendNotification(messageRequest.message(), messageRequest.count());
         return "Message sent successfully.";
     }
 }
