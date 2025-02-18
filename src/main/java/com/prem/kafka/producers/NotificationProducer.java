@@ -24,6 +24,7 @@ public class NotificationProducer {
             for (int i = 0; i < count; i++) {
                 NotificationDto notificationDto = new NotificationDto();
                 notificationDto.setMessage(message);
+                notificationDto.setNotificationName("SIGN_UP");
                 notificationDto.setNotificationId(UUID.randomUUID().toString());
                 notificationDto.setUserId(UUID.randomUUID().toString());
                 notificationDto.setDeviceId(UUID.randomUUID().toString());

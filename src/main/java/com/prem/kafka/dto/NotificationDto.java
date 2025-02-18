@@ -10,7 +10,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NotificationDto implements Serializable {
-
+    private String notificationName;
     private String notificationId;
     private String message;
     private String userId;
