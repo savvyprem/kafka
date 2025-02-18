@@ -11,9 +11,12 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class NotificationDto implements Serializable {
 
-    public static final Long serialVersionUID = 1L;
-    
-    private Integer id;
+    private String notificationId;
     private String message;
-    private String description;
+    private String userId;
+    private String deviceId;
+    private String email;
+    private String phone;
+    private String notificationType;
+    private String purposeCode;
 }

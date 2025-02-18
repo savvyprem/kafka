@@ -8,6 +8,8 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -18,11 +20,21 @@ public class NotificationProducer {
     @Async
     public void sendNotification(String message, Integer count) {
         log.info("sendNotification(): Sending message: {}", message);
-        for (int i = 0; i < count; i++) {
-            NotificationDto notificationDto = new NotificationDto(i, message, "Description: " + message);
-            log.info("sendNotification(): Sending message: {}", notificationDto);
-            kafkaTemplate.send(NotificationConstants.TOPIC_NOTIFICATIONS, notificationDto);
-        }
+        Thread thread = new Thread(() -> {
+            for (int i = 0; i < count; i++) {
+                NotificationDto notificationDto = new NotificationDto();
+                notificationDto.setMessage(message);
+                notificationDto.setNotificationId(UUID.randomUUID().toString());
+                notificationDto.setUserId(UUID.randomUUID().toString());
+                notificationDto.setDeviceId(UUID.randomUUID().toString());
+                notificationDto.setEmail("test" + i + "@yopmail.com");
+                notificationDto.setPhone("98232323" + i);
+                notificationDto.setNotificationType("EMAIL");
+                log.info("sendNotification(): Sending message: {}", notificationDto);
+                kafkaTemplate.send(NotificationConstants.TOPIC_NOTIFICATIONS, notificationDto);
+            }
+        });
+        thread.start();
         log.info("sendNotification(): Message sent successfully.");
     }
 }
