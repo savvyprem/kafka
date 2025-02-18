@@ -21,7 +21,7 @@ public class NotificationProducer {
         for (int i = 0; i < count; i++) {
             NotificationDto notificationDto = new NotificationDto(i, message, "Description: " + message);
             log.info("sendNotification(): Sending message: {}", notificationDto);
-            kafkaTemplate.send(NotificationConstants.TOPIC_NOTIFICATIONS_PRTS, notificationDto);
+            kafkaTemplate.send(NotificationConstants.TOPIC_NOTIFICATIONS, notificationDto);
         }
         log.info("sendNotification(): Message sent successfully.");
     }
